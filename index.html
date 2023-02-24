@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="identifier"></div>
+    <div class="container">
+      <div>
+        <input type="checkbox" class="light-switch-input" id="light-switch-1" />
+        <label for="light-switch-1" class="light-switch-label">
+          <div class="screw"></div>
+          <div class="switch"></div>
+          <div class="screw"></div>
+        </label>
+        <div id="background"></div>
+      </div>
+      <div>
+        <input type="checkbox" class="light-switch-input" id="light-switch-2" />
+        <label for="light-switch-2" class="light-switch-label">
+          <div class="screw"></div>
+          <div class="switch"></div>
+          <div class="screw"></div>
+        </label>
+        <div id="background"></div>
+      </div>
+      <div>
+        <input type="checkbox" class="light-switch-input" id="light-switch-3" />
+        <label for="light-switch-3" class="light-switch-label">
+          <div class="screw"></div>
+          <div class="switch"></div>
+          <div class="screw"></div>
+        </label>
+        <div id="background"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      const switches = document.querySelectorAll(".light-switch-input");
+
+      switches.forEach((s) => {
+        s.addEventListener("change", function (e) {
+          var light_switch_1 = document.getElementById("light-switch-1");
+          var light_switch_2 = document.getElementById("light-switch-2");
+          var light_switch_3 = document.getElementById("light-switch-3");
+
+          var state = {
+            light_switch_1: light_switch_1.checked,
+            light_switch_2: light_switch_2.checked,
+            light_switch_3: light_switch_3.checked,
+          };
+          console.log(state);
+
+          fetch("http://localhost:8000/api/state", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "X-API-Key": localStorage.getItem("identifier"),
+            },
+            body: JSON.stringify(state),
+          })
+            .then((res) => res.json())
+            .then((json) => {});
+        });
+      });
+    </script>
+  </body>
+</html>
