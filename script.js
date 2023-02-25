@@ -272,7 +272,31 @@ window.onload = function () {
       "X-API-Key": identifier,
     },
   })
-    .then((res) => res.json())
+    .then(async (res) => {
+      if (res.status == 404) {
+        var state = {
+          light_switch_1: false,
+          light_switch_2: false,
+          light_switch_3: false,
+        };
+
+        var put_response = await fetch("https://ecse-three-led-api.onrender.com/api/state", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": localStorage.getItem("identifier"),
+          },
+          body: JSON.stringify(state),
+        });
+
+        var put_json = await put_response.json();
+        return put_json;
+      }
+      if (res.status == 200) {
+        var response_json = await res.json();
+        return response_json;
+      }
+    })
     .then((json) => {
       document.getElementById("light-switch-1").checked = json.light_switch_1;
       document.getElementById("light-switch-2").checked = json.light_switch_2;
