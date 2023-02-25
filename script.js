@@ -266,4 +266,16 @@ window.onload = function () {
   }
   identifier = localStorage.getItem("identifier");
   document.querySelector(".identifier").innerHTML = identifier;
+
+  fetch("https://ecse-three-led-api.onrender.com/api/state", {
+    headers: {
+      "X-API-Key": identifier,
+    },
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      document.getElementById("light-switch-1").checked = json.light_switch_1;
+      document.getElementById("light-switch-2").checked = json.light_switch_2;
+      document.getElementById("light-switch-3").checked = json.light_switch_3;
+    });
 };
