@@ -45,33 +45,33 @@
     </div>
     <script src="script.js"></script>
     <script>
-      const switches = document.querySelectorAll(".light-switch-input");
+      // const switches = document.querySelectorAll(".light-switch-input");
 
-      switches.forEach((s) => {
-        s.addEventListener("change", function (e) {
-          var light_switch_1 = document.getElementById("light-switch-1");
-          var light_switch_2 = document.getElementById("light-switch-2");
-          var light_switch_3 = document.getElementById("light-switch-3");
+      // switches.forEach((s) => {
+      //   s.addEventListener("change", function (e) {
+      //     var light_switch_1 = document.getElementById("light-switch-1");
+      //     var light_switch_2 = document.getElementById("light-switch-2");
+      //     var light_switch_3 = document.getElementById("light-switch-3");
 
-          var state = {
-            light_switch_1: light_switch_1.checked,
-            light_switch_2: light_switch_2.checked,
-            light_switch_3: light_switch_3.checked,
-          };
-          console.log(state);
+      //     var state = {
+      //       light_switch_1: light_switch_1.checked,
+      //       light_switch_2: light_switch_2.checked,
+      //       light_switch_3: light_switch_3.checked,
+      //     };
+      //     console.log(state);
 
-          fetch("https://ecse-three-led-api.onrender.com/api/state", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "X-API-Key": localStorage.getItem("identifier"),
-            },
-            body: JSON.stringify(state),
-          })
-            .then((res) => res.json())
-            .then((json) => {});
-        });
-      });
+      //     fetch("https://ecse-three-led-api.onrender.com/api/state", {
+      //       method: "PUT",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         "X-API-Key": localStorage.getItem("identifier"),
+      //       },
+      //       body: JSON.stringify(state),
+      //     })
+      //       .then((res) => res.json())
+      //       .then((json) => {});
+      //   });
+      // });
     </script>
   </body>
 </html>
