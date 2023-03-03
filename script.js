@@ -267,7 +267,7 @@ window.onload = function () {
   identifier = localStorage.getItem("identifier");
   document.querySelector(".identifier").innerHTML = identifier;
 
-  let socket = new WebSocket(`ws://ecse-three-led-api.onrender.com/ws`);
+  let socket = new WebSocket(`ws://ecse-three-led-api-v2.onrender.com/ws`);
 
   socket.onopen = function (e) {
     console.log("[open] Connection established");
@@ -290,7 +290,7 @@ window.onload = function () {
     if (socket.readyState == WebSocket.OPEN) socket.close();
   });
 
-  fetch("https://ecse-three-led-api.onrender.com/api/state", {
+  fetch("https://ecse-three-led-api-v2.onrender.com/api/state", {
     // fetch("http://localhost:8000/api/state", {
     headers: {
       "X-API-Key": identifier,
@@ -304,7 +304,7 @@ window.onload = function () {
           light_switch_3: false,
         };
 
-        var put_response = await fetch("https://ecse-three-led-api.onrender.com/api/state", {
+        var put_response = await fetch("https://ecse-three-led-api-v2.onrender.com/api/state", {
           // var put_response = await fetch("http://localhost:8000/api/state", {
           method: "PUT",
           headers: {
