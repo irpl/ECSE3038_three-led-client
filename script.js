@@ -267,7 +267,31 @@ window.onload = function () {
   identifier = localStorage.getItem("identifier");
   document.querySelector(".identifier").innerHTML = identifier;
 
+  let socket = new WebSocket(`ws://ecse-three-led-api.onrender.com/ws`);
+
+  socket.onopen = function (e) {
+    console.log("[open] Connection established");
+    console.log("[info] Sending to server");
+    socket.send(JSON.stringify({ username: identifier }));
+  };
+
+  socket.onmessage = function (event) {
+    let data = JSON.parse(event.data);
+    if (data.username) console.log(`[message] Data received from server: ${data.username}`);
+    if (data.user == identifier) {
+      console.log(`[state] Data received from server: ${JSON.stringify(data)}`);
+      document.getElementById("light-switch-1").checked = data.light_switch_1;
+      document.getElementById("light-switch-2").checked = data.light_switch_2;
+      document.getElementById("light-switch-3").checked = data.light_switch_3;
+    }
+  };
+
+  window.addEventListener("unload", function () {
+    if (socket.readyState == WebSocket.OPEN) socket.close();
+  });
+
   fetch("https://ecse-three-led-api.onrender.com/api/state", {
+    // fetch("http://localhost:8000/api/state", {
     headers: {
       "X-API-Key": identifier,
     },
@@ -281,6 +305,7 @@ window.onload = function () {
         };
 
         var put_response = await fetch("https://ecse-three-led-api.onrender.com/api/state", {
+          // var put_response = await fetch("http://localhost:8000/api/state", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
