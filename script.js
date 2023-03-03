@@ -267,7 +267,7 @@ window.onload = function () {
   identifier = localStorage.getItem("identifier");
   document.querySelector(".identifier").innerHTML = identifier;
 
-  let socket = new WebSocket(`ws://ecse-three-led-api-v2.onrender.com/ws`);
+  let socket = new WebSocket(`wss://ecse-three-led-api-v2.onrender.com/ws`);
 
   socket.onopen = function (e) {
     console.log("[open] Connection established");
